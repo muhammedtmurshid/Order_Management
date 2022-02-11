@@ -1,0 +1,184 @@
+
+{% load static %}
+{% include 'header/header.html' %}
+{% load crispy_forms_tags %}
+
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>Add Order</h1>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active">Add Order</li>
+            </ol>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+
+     <!-- Main content -->
+    <section class="content">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card card-primary">
+            <div class="card-header">
+              <h3 class="card-title">General</h3>
+
+              <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                  <i class="fas fa-minus"></i>
+                </button>
+              </div>
+            </div>
+
+              <form method="post" enctype="multipart/form-data">
+            <div class="card-body">
+
+              {% csrf_token %}
+
+            <div class="form-group">
+              <label>Choose Shop</label>
+              {{ order_form.shop }}
+                    </div>
+
+                          <div class="form-group">
+              <label>Choose Staff</label>
+              {{ order_form.staff }}
+                    </div>
+
+                 <div class="form-group">
+              <label>Choose Status</label>
+              {{ order_form.status }}
+                    </div>
+
+
+                 {{ formset.management_form }}
+                    {% for form in formset %}
+
+                 <div class="card card-danger">
+              <div class="card-header">
+                <h3 class="card-title">Select Product</h3>
+              </div>
+
+
+              <div class="card-body">
+                <div class="row form-row spacer">
+                  <div class="col-4">
+                      {{form.product}}
+                  </div>
+                  <div class="col-3">
+                      {{form.quantity}}
+                  </div>
+                    <div class="col-2">
+                    <input type="text" class="form-control" placeholder="Product Amount" disabled>
+                  </div>
+
+                    <div class="col-2">
+                    <input type="text" class="form-control" placeholder="Total Amount" disabled>
+                  </div>
+
+
+
+                     <div class="col-1">
+                         <div class="input-group-append">
+                <button class="btn btn-success add-form-row">+</button>
+            </div>
+
+                         <br>
+                  </div>
+
+                </div>
+              </div>
+                 </div>
+                         {% endfor %}
+
+
+<input type="submit" value="Save Changes" class="btn btn-success float-right">
+                            <br>
+            </form>
+         <div>
+
+            <!-- /.card-body -->
+          </div>
+          <!-- /.card -->
+        </div>
+
+
+    </section>
+    <!-- /.content -->
+  </div>
+
+  <!-- /.content-wrapper -->
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script type="text/javascript">
+function updateElementIndex(el, prefix, ndx) {
+    var id_regex = new RegExp('(' + prefix + '-\\d+)');
+    var replacement = prefix + '-' + ndx;
+    if ($(el).attr("for")) $(el).attr("for", $(el).attr("for").replace(id_regex, replacement));
+    if (el.id) el.id = el.id.replace(id_regex, replacement);
+    if (el.name) el.name = el.name.replace(id_regex, replacement);
+}
+function cloneMore(selector, prefix) {
+    var newElement = $(selector).clone(true);
+    var total = $('#id_' + prefix + '-TOTAL_FORMS').val();
+    newElement.find(':input:not([type=button]):not([type=submit]):not([type=reset])').each(function() {
+        var name = $(this).attr('name')
+        if(name) {
+            name = name.replace('-' + (total-1) + '-', '-' + total + '-');
+            var id = 'id_' + name;
+            $(this).attr({'name': name, 'id': id}).val('').removeAttr('checked');
+        }
+    });
+    newElement.find('label').each(function() {
+        var forValue = $(this).attr('for');
+        if (forValue) {
+          forValue = forValue.replace('-' + (total-1) + '-', '-' + total + '-');
+          $(this).attr({'for': forValue});
+        }
+    });
+    total++;
+    $('#id_' + prefix + '-TOTAL_FORMS').val(total);
+    $(selector).after(newElement);
+    var conditionRow = $('.form-row:not(:last)');
+    conditionRow.find('.btn.add-form-row')
+    .removeClass('btn-success').addClass('btn-danger')
+    .removeClass('add-form-row').addClass('remove-form-row')
+    .html('-');
+    return false;
+}
+function deleteForm(prefix, btn) {
+    var total = parseInt($('#id_' + prefix + '-TOTAL_FORMS').val());
+    if (total > 1){
+        btn.closest('.form-row').remove();
+        var forms = $('.form-row');
+        $('#id_' + prefix + '-TOTAL_FORMS').val(forms.length);
+        for (var i=0, formCount=forms.length; i<formCount; i++) {
+            $(forms.get(i)).find(':input').each(function() {
+                updateElementIndex(this, prefix, i);
+            });
+        }
+    }
+    return false;
+}
+$(document).on('click', '.add-form-row', function(e){
+    e.preventDefault();
+    cloneMore('.form-row:last', 'form');
+    return false;
+});
+$(document).on('click', '.remove-form-row', function(e){
+    e.preventDefault();
+    deleteForm('form', $(this));
+    return false;
+});
+
+</script>
+
+{% include 'footer/footer.html' %}

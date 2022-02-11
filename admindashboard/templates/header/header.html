@@ -1,0 +1,283 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>WHITE FOX DIGITALS | CLIENT DASHBOARD</title>
+
+  <!-- Google Font: Source Sans Pro -->
+  <link rel="stylesheet" href="{% static '../../css.css?family=Source+Sans+Pro:300,400,400i,700&display=fallback' %}">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="{% static 'plugins/fontawesome-free/css/all.min.css' %}">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="{% static '../../ionicons/2.0.1/css/ionicons.min.css' %}">
+  <!-- Tempusdominus Bootstrap 4 -->
+  <link rel="stylesheet" href="{% static 'plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css' %}">
+  <!-- iCheck -->
+  <link rel="stylesheet" href="{% static 'plugins/icheck-bootstrap/icheck-bootstrap.min.css' %}">
+  <!-- JQVMap -->
+  <link rel="stylesheet" href="{% static 'plugins/jqvmap/jqvmap.min.css' %}">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="{% static 'dist/css/adminlte.min.css' %}">
+  <!-- overlayScrollbars -->
+  <link rel="stylesheet" href="{% static 'plugins/overlayScrollbars/css/OverlayScrollbars.min.css' %}">
+  <!-- Daterange picker -->
+  <link rel="stylesheet" href="{% static 'plugins/daterangepicker/daterangepicker.css' %}">
+  <!-- summernote -->
+  <link rel="stylesheet" href="{% static 'plugins/summernote/summernote-bs4.min.css' %}">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js" ></script>
+
+
+</head>
+<body class="hold-transition sidebar-mini layout-fixed">
+<div class="wrapper">
+
+  <!-- Preloader -->
+  <div class="preloader flex-column justify-content-center align-items-center">
+    <img class="animation__shake" src="{% static 'dist/img/logo.jpg' %}" alt="AdminLTELogo" height="60" width="60">
+  </div>
+
+  <!-- Navbar -->
+  <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+    <!-- Left navbar links -->
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+      </li>
+      
+    </ul>
+
+    <!-- Right navbar links -->
+    <ul class="navbar-nav ml-auto">
+      <!-- Navbar Search -->
+     
+
+      <!-- Messages Dropdown Menu -->
+     
+      <!-- Notifications Dropdown Menu -->
+
+      <li class="nav-item dropdown">
+        <a class="nav-link"  href="">
+          <i class="far fa-bell"></i>
+          <span class="badge badge-warning navbar-badge">{{ notification_count }}</span>
+        </a>
+      <li class="nav-item">
+        <a class="nav-link" data-widget="fullscreen" href="#" role="button">
+          <i class="fas fa-expand-arrows-alt"></i>
+        </a>
+      </li>
+
+    </ul>
+  </nav>
+  <!-- /.navbar -->
+
+  <!-- Main Sidebar Container -->
+  <aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <!-- Brand Logo -->
+    <a href="" class="brand-link">
+      <img src="{% static 'dist/img/logo.jpg' %}" alt="White Fox Digitals" class="brand-image img-circle elevation-3" style="opacity: .8">
+      <span class="brand-text font-weight-light">White Fox Digitals</span>
+    </a>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <!-- Sidebar user panel (optional) -->
+      <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+        <div class="image">
+          <img src="{% static 'dist/img/logo.jpg' %}" class="img-circle elevation-2" alt="User Image">
+        </div>
+        <div class="info">
+          <a href="#" class="d-block">{{ user.username }}</a>
+        </div>
+      </div>
+
+      <!-- SidebarSearch Form -->
+      <div class="form-inline">
+        <div class="input-group" data-widget="sidebar-search">
+          <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
+          <div class="input-group-append">
+            <button class="btn btn-sidebar">
+              <i class="fas fa-search fa-fw"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sidebar Menu -->
+      <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          <!-- Add icons to the links using the .nav-icon class
+               with font-awesome or any other icon font library -->
+          <li class="nav-item">
+            <a href="{% url 'admin_dashboard' %}" class="nav-link">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <p>
+                Dashboard
+              </p>
+            </a>
+          </li>
+
+
+<li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-users"></i>
+              <p>
+                Staffs
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{% url 'add_staff' %}" class="nav-link">
+                  <p>Add Staff</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{% url 'view_staff' %}" class="nav-link">
+                  <p>View Staffs</p>
+                </a>
+              </li>
+            </ul>
+
+
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-store"></i>
+              <p>
+                Shops
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{% url 'add_shop' %}" class="nav-link">
+                  <p>Add Shops</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{% url 'view_shop' %}" class="nav-link">
+                  <p>View Shops</p>
+                </a>
+              </li>
+
+            </ul>
+
+
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+            <i class="nav-icon fas fa-phone-square-alt"></i>
+              <p>
+                Tele Callers
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{% url 'add_telecaller' %}" class="nav-link">
+                  <p>Add Tele Caller</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{% url 'view_telecaller' %}" class="nav-link">
+                  <p>View Tele Callers</p>
+                </a>
+              </li>
+            </ul>
+
+
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-shopping-basket"></i>
+              <p>
+                Products
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{% url 'add_category' %}" class="nav-link">
+                  <p>Category</p>
+                </a>
+              </li>
+
+               <li class="nav-item">
+                <a href="{% url 'view_category' %}" class="nav-link">
+                  <p>View Category</p>
+                </a>
+              </li>
+
+              <li class="nav-item">
+                <a href="{% url 'add_product' %}" class="nav-link">
+                  <p>Add Products</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{% url 'view_product' %}" class="nav-link">
+                  <p>View Products</p>
+                </a>
+              </li>
+            </ul>
+
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+           <i class="nav-icon fas fa-shopping-bag"></i>
+              <p>
+                Orders
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{% url 'add_order' %}" class="nav-link">
+                  <p>Add Order</p>
+                </a>
+              </li>
+
+               <li class="nav-item">
+                <a href="{% url 'view_order' %}" class="nav-link">
+                  <p>View Order</p>
+                </a>
+              </li>
+
+              <li class="nav-item">
+                <a href="{% url 'pending_order' %}" class="nav-link">
+                  <p>Pending Orders</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{% url 'completed_order' %}" class="nav-link">
+                  <p>Approved Orders</p>
+                </a>
+              </li>
+            </ul>
+
+<li class="nav-item">
+            <a href="{% url 'edit_profile' %}" class="nav-link">
+                  <i class="nav-icon fas fa-edit"></i>
+              <p>
+                Edit Profile
+              </p>
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a href="{% url 'admin_logout' %}" class="nav-link">
+              <i class="nav-icon fas fa-sign-out-alt"></i>
+              <p>
+                Logout
+              </p>
+            </a>
+          </li>
+
+
+        </ul>
+      </nav>
+      <!-- /.sidebar-menu -->
+    </div>
+    <!-- /.sidebar -->
+  </aside>
+
+
